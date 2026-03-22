@@ -10,7 +10,7 @@ HTML5
 CSS3
 Javascript (Vanilla JS)
 Demonstração online
-Acesse https://heltongti.github.io/IMC/
+Acesse https://github.com/HeltonGTI/Simulador-de-Folha-de-Pagamento-2026.git
 
 licença
 A licença deste software é MIT
