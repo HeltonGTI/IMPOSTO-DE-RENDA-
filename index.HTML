@@ -2,11 +2,11 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Holerite Digital 2026</title>
+<title>Simulador de Folha 2026</title>
 
 <style>
   body {
-    margin: 0;
+    margin: 1;
     font-family: Arial, sans-serif;
     background: linear-gradient(135deg, #1976D2, #0D47A1);
     display: flex;
@@ -19,8 +19,8 @@
     background: white;
     width: 380px;
     padding: 24px;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
   }
 
   h1 {
@@ -36,41 +36,42 @@
 
   label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 5PX;
     font-weight: bold;
     color: #1976D2;
-    font-size: 14px;
   }
 
   input {
     width: 100%;
-    padding: 12px;
-    border-radius: 8px;
+    padding: 16px;
+    border-radius: 6px;
     border: 1px solid #ccc;
-    font-size: 15px;
+    font-size: 16px;
     box-sizing: border-box;
   }
 
   input:disabled {
     background: #E3F2FD;
-    font-weight: bold;
+    font-weight: center;
   }
 
   .botoes {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 10px;
-    margin-bottom: 15px;
-  }
+  display: flex;
+  flex-direction: column; 
+  gap: 10px;
+  margin-top: 6px;
+  margin-bottom: 20px;
+}
+  
 
   button {
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
+    flex: 1;
+    padding: 16px;
+    border: center;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: center;
+    cursor: center;
   }
 
   .calcular {
@@ -83,45 +84,20 @@
   }
 
   .limpar {
-    background: #90CAF9;
-    color: #0D47A1;
+    background: #ccc;
   }
 
   .limpar:hover {
-    background: #64B5F6;
+    background: #999;
   }
 
-  /* RESULTADO FINAL DESTACADO */
-  .resultado-final {
-    margin-top: 10px;
+  .resultado {
+    margin-top: 16px;
     padding: 16px;
-    background-color: #d6e4ef;
-    border-left: 5px solid #0D47A1;
+    background: #E3F2FD;
     border-radius: 10px;
     text-align: center;
-  }
-
-  .resultado-final strong {
-    display: block;
-    font-size: 14px;
-    margin-bottom: 5px;
-    color: #333;
-  }
-
-  .resultado-final span {
-    font-size: 20px;
-    font-weight: bold;
-    color: #0D47A1;
-  }
-
-  /* MENSAGEM */
-  .resultado {
-    margin-top: 12px;
-    padding: 10px;
-    background: #E3F2FD;
-    border-radius: 8px;
-    text-align: center;
-    font-weight: bold;
+    font-weight: center;
     color: #0D47A1;
     display: none;
   }
@@ -131,45 +107,37 @@
 <body>
 
 <div class="card">
-  <h1>Holerite Digital 2026</h1>
+  <h1><strong>Holerite Digital 2026 </strong></h1>
 
   <div class="grupo">
-    <label>Salário Bruto (R$)</label>
-    <input type="number" id="salario" placeholder="Ex: 6500">
+    <label><strong> Salário Bruto (R$)</label>
+    <input type="number" id="salario">
   </div>
 
   <div class="grupo">
-    <label>Desconto INSS (Tabela 2026)</label>
+    <label> INSS (Tabela 2026) </label>
     <input type="text" id="inss" disabled>
   </div>
 
   <div class="grupo">
-    <label>Imposto de Renda (Isenção até 5K)</label>
+    <label>Imposto de Renda (Inseção até 5K)</label>
     <input type="text" id="irrf" disabled>
   </div>
 
-  <div class="botoes">
-    <button class="calcular" onclick="calcular()">Calcular Agora</button>
-    <button class="limpar" onclick="limpar()">Limpar Tudo</button>
+   <div class="botoes">
+    <button class="calcular" onclick="calcular()">Calcular</button>
+    <button class="limpar" onclick="limpar()">Limpar</button>
   </div>
 
-  <!-- RESULTADO DESTACADO -->
-  <div class="resultado-final">
-    <strong>Salário Líquido Final:</strong>
-    <span id="liquido">R$ 0,00</span>
+  <div class="grupo">
+    <label>Salário Líquido Final </label>
+    <input type="text" id="liquido" disabled>
   </div>
 
   <div id="mensagem" class="resultado"></div>
 </div>
 
 <script>
-function formatarMoeda(valor) {
-  return valor.toLocaleString('pt-BR', {
-    style: 'currency',
-    currency: 'BRL'
-  });
-}
-
 function calcular() {
   let salario = parseFloat(document.getElementById("salario").value);
 
@@ -183,9 +151,9 @@ function calcular() {
   let irrf = calcularIRRF(base);
   let liquido = salario - inss - irrf;
 
-  document.getElementById("inss").value = formatarMoeda(inss);
-  document.getElementById("irrf").value = formatarMoeda(irrf);
-  document.getElementById("liquido").innerText = formatarMoeda(liquido);
+  document.getElementById("inss").value = inss.toFixed(4);
+  document.getElementById("irrf").value = irrf.toFixed(4);
+  document.getElementById("liquido").value = liquido.toFixed(4);
 
   let msg = document.getElementById("mensagem");
 
@@ -201,7 +169,7 @@ function limpar() {
   document.getElementById("salario").value = "";
   document.getElementById("inss").value = "";
   document.getElementById("irrf").value = "";
-  document.getElementById("liquido").innerText = "R$ 0,00";
+  document.getElementById("liquido").value = "";
   document.getElementById("mensagem").style.display = "none";
 }
 
