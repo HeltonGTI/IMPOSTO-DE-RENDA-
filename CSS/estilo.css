@@ -1,0 +1,106 @@
+/* style.css */
+
+/* ===== Corpo da página ===== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #1976D2, #0D47A1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* ===== Card do simulador ===== */
+.card {
+  background: white;
+  width: 380px;
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* ===== Título ===== */
+h1 {
+  text-align: center;
+  color: #0D47A1;
+  margin-bottom: 20px;
+  font-size: 22px;
+}
+
+/* ===== Grupos de input ===== */
+.grupo {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #1976D2;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+input:disabled {
+  background: #E3F2FD;
+  font-weight: bold;
+}
+
+/* ===== Botões ===== */
+.botoes {
+  display: flex;
+  flex-direction: column; 
+  gap: 10px;
+  margin-top: 6px;
+  margin-bottom: 20px;
+}
+
+button {
+  padding: 12px;
+  border: none;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Botão calcular */
+.calcular {
+  background: #1976D2;
+  color: white;
+}
+
+.calcular:hover {
+  background: #0D47A1;
+}
+
+/* Botão limpar */
+.limpar {
+  background: #ccc;
+  color: #333;
+}
+
+.limpar:hover {
+  background: #999;
+}
+
+/* ===== Resultado ===== */
+.resultado {
+  margin-top: 16px;
+  padding: 16px;
+  background: #E3F2FD;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: bold;
+  color: #0D47A1;
+  display: none;
+}
