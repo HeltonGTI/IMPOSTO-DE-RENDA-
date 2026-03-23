@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
+<link rel="stylesheet" href="style.css">
 <meta charset="UTF-8">
 <title>Simulador de Folha 2026</title>
 
@@ -110,7 +110,7 @@
   <h1><strong>Holerite Digital 2026 </strong></h1>
 
   <div class="grupo">
-    <label><strong> Salário Bruto (R$)</label>
+    <label><strong>Salário Bruto (R$)</strong></label>
     <input type="number" id="salario">
   </div>
 
@@ -151,9 +151,9 @@ function calcular() {
   let irrf = calcularIRRF(base);
   let liquido = salario - inss - irrf;
 
-  document.getElementById("inss").value = inss.toFixed(4);
-  document.getElementById("irrf").value = irrf.toFixed(4);
-  document.getElementById("liquido").value = liquido.toFixed(4);
+  document.getElementById("inss").value = formatarMoeda(inss);
+  document.getElementById("irrf").value = formatarMoeda(irrf);
+  document.getElementById("liquido").value = formatarMoeda(liquido);
 
   let msg = document.getElementById("mensagem");
 
