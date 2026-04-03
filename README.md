@@ -1,19 +1,24 @@
-🧢 App Pokémon
+💼 Simulador de Holerite 2026
 
-Aplicação web interativa que consome a PokeAPI para buscar informações de Pokémon, exibir os dados em tela e armazenar os resultados no navegador.
+Aplicação web simples e intuitiva para simular o cálculo de folha de pagamento (holerite) com base nas regras de INSS e Imposto de Renda para o ano de 2026.
 
-📸 Preview 🔎 Busca de Pokémon
-
-🐉 Exemplo de Pokémon exibido
-
-🌱 Outro exemplo
+Curso Gestão da Tecnologia da Informação - Fatec Itu
 
 🚀 Funcionalidades
 
-✔ Buscar Pokémon pelo nome ✔ Exibir dados diretamente da API ✔ Mostrar informações como:
+📊 Cálculo automático de:
+INSS (com base na tabela progressiva)
+IRRF (isento até R$ 5.000)
+Salário líquido final
+💰 Exibição dos valores formatados em Real (R$)
+🔄 Botão para limpar os campos rapidamente
+📢 Mensagem automática de isenção de imposto
 
-Nome Imagem Tipo Peso
 
-✔ Salvar resultados no localStorage ✔ Listar Pokémon em tabela ✔ Remover Pokémon da lista
+🖥️ Tecnologias Utilizadas
 
-🛠️ Tecnologias utilizadas HTML5 CSS3 JavaScript (Vanilla JS) API REST (PokeAPI)
+HTML5 → Estrutura da aplicação
+CSS3 → Estilização moderna e responsiva
+JavaScript (Vanilla JS) → Lógica de cálculo
+
+https://heltongti.github.io/IMPOSTO-DE-RENDA-/
