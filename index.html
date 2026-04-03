@@ -2,43 +2,214 @@
 <html lang="pt-BR">
 
 <head>
-  <meta charset="UTF-8">
-  <title>App Pokémon</title>
-  <link rel="stylesheet" href="css/estilo.css">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Folha 2026</title>
+    <link rel="stylesheet" href="css/estilo.css">
+  </head>
+</head>
+
+<body>
+  <script src="js/script.js"></script>
+</body>
+
+</html>
+
+<style>
+  body {
+    margin: 1;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #1976D2, #0D47A1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .card {
+    background: white;
+    width: 380px;
+    padding: 24px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  h1 {
+    text-align: center;
+    color: #0D47A1;
+    margin-bottom: 20px;
+    font-size: 22px;
+  }
+
+  .grupo {
+    margin-bottom: 15px;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5PX;
+    font-weight: bold;
+    color: #1976D2;
+  }
+
+  input {
+    width: 100%;
+    padding: 16px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+
+  input:disabled {
+    background: #E3F2FD;
+    font-weight: center;
+  }
+
+  .botoes {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 6px;
+    margin-bottom: 20px;
+  }
+
+
+  button {
+    flex: 1;
+    padding: 16px;
+    border: center;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: center;
+    cursor: center;
+  }
+
+  .calcular {
+    background: #1976D2;
+    color: white;
+  }
+
+  .calcular:hover {
+    background: #0D47A1;
+  }
+
+  .limpar {
+    background: #ccc;
+  }
+
+  .limpar:hover {
+    background: #999;
+  }
+
+  .resultado {
+    margin-top: 16px;
+    padding: 16px;
+    background: #E3F2FD;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: center;
+    color: #0D47A1;
+    display: none;
+  }
+</style>
 </head>
 
 <body>
 
-  <div class="container">
-    <div class="header">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/International_Pok%C3%A9mon_logo.svg" alt="Pokemon Logo">
-  <h1>🔍Buscar Pokémon </h1>
-</div>
+  <div class="card">
+    <h1><strong>Holerite Digital 2026 </strong></h1>
 
-    <form id="form">
-      <input type="text" id="pokemonInput" placeholder="Digite o nome do Pokémon">
-      <button type="submit" class="pokebola-btn">
-  <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="Buscar">
-</button>
-    </form>
+    <div class="grupo">
+      <label><strong>Salário Bruto (R$)</strong></label>
+      <input type="number" id="salario">
+    </div>
 
-    <p id="erro"></p>
+    <div class="grupo">
+      <label> INSS (Tabela 2026) </label>
+      <input type="text" id="inss" disabled>
+    </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Imagem</th>
-          <th>Tipo</th>
-          <th>Peso</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody id="tabela"></tbody>
-    </table>
+    <div class="grupo">
+      <label>Imposto de Renda (Inseção até 5K)</label>
+      <input type="text" id="irrf" disabled>
+    </div>
+
+    <div class="botoes">
+      <button class="calcular" onclick="calcular()">Calcular</button>
+      <button class="limpar" onclick="limpar()">Limpar</button>
+    </div>
+
+    <div class="grupo">
+      <label>Salário Líquido Final </label>
+      <input type="text" id="liquido" disabled>
+    </div>
+
+    <div id="mensagem" class="resultado"></div>
   </div>
 
-  <script src="js/script.js"></script>
+  <script>
+    function calcular() {
+      let salario = parseFloat(document.getElementById("salario").value);
+
+      if (isNaN(salario) || salario <= 0) {
+        alert("Digite um salário válido!");
+        return;
+      }
+
+      let inss = calcularINSS(salario);
+      let base = salario - inss;
+      let irrf = calcularIRRF(base);
+      let liquido = salario - inss - irrf;
+
+      document.getElementById("inss").value = formatarMoeda(inss);
+      document.getElementById("irrf").value = formatarMoeda(irrf);
+      document.getElementById("liquido").value = formatarMoeda(liquido);
+
+      let msg = document.getElementById("mensagem");
+
+      if (irrf === 0) {
+        msg.style.display = "block";
+        msg.innerText = "Você está isento de Imposto de Renda em 2026!";
+      } else {
+        msg.style.display = "none";
+      }
+    }
+
+    function limpar() {
+      document.getElementById("salario").value = "";
+      document.getElementById("inss").value = "";
+      document.getElementById("irrf").value = "";
+      document.getElementById("liquido").value = "";
+      document.getElementById("mensagem").style.display = "none";
+    }
+
+    function calcularINSS(salario) {
+      let teto = 8475.55;
+      let base = Math.min(salario, teto);
+      let inss = 0;
+
+      if (base <= 1621) {
+        inss = base * 0.075;
+      } else if (base <= 2902.84) {
+        inss = (1621 * 0.075) + ((base - 1621) * 0.09);
+      } else if (base <= 4354.27) {
+        inss = (1621 * 0.075) + (1281.84 * 0.09) + ((base - 2902.84) * 0.12);
+      } else {
+        inss = (1621 * 0.075) + (1281.84 * 0.09) + (1451.43 * 0.12) + ((base - 4354.27) * 0.14);
+      }
+
+      return Math.min(inss, 988.09);
+    }
+
+    function calcularIRRF(base) {
+      if (base <= 5000) return 0;
+      return (base - 5000) * 0.275;
+    }
+  </script>
+
 </body>
 
 </html>

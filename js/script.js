@@ -1,87 +1,70 @@
-const form = document.getElementById('form');
-const input = document.getElementById('pokemonInput');
-const tabela = document.getElementById('tabela');
-const erro = document.getElementById('erro');
+function calcular() {
+  let salario = parseFloat(document.getElementById("salario").value);
 
-let pokemons = JSON.parse(localStorage.getItem('pokemons')) || [];
-
-/**
- * Busca Pokémon na API
- * @param {string} nome
- */
-async function buscarPokemon(nome) {
-  try {
-    const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${nome.toLowerCase()}`);
-    if (!res.ok) throw new Error('Pokémon não encontrado');
-
-    const data = await res.json();
-
-    const pokemon = {
-      nome: data.name,
-      imagem: data.sprites.front_default,
-      tipo: data.types[0].type.name,
-      peso: data.weight
-    };
-
-    salvarPokemon(pokemon);
-    renderizar();
-    erro.textContent = '';
-
-  } catch (e) {
-    erro.textContent = e.message;
-  }
-}
-
-/**
- * Salva no localStorage
- * @param {object} pokemon
- */
-function salvarPokemon(pokemon) {
-  pokemons.push(pokemon);
-  localStorage.setItem('pokemons', JSON.stringify(pokemons));
-}
-
-/**
- * Remove Pokémon
- * @param {number} index
- */
-function removerPokemon(index) {
-  pokemons.splice(index, 1);
-  localStorage.setItem('pokemons', JSON.stringify(pokemons));
-  renderizar();
-}
-
-/**
- * Renderiza tabela
- */
-function renderizar() {
-  tabela.innerHTML = '';
-
-  pokemons.forEach((p, index) => {
-    tabela.innerHTML += `
-      <tr>
-        <td>${p.nome}</td>
-        <td><img src="${p.imagem}"></td>
-        <td>${p.tipo}</td>
-        <td>${p.peso}</td>
-        <td><button onclick="removerPokemon(${index})">Excluir</button></td>
-      </tr>
-    `;
-  });
-}
-
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-
-  const valor = input.value.trim();
-
-  if (!valor) {
-    erro.textContent = 'Digite um nome!';
+  if (isNaN(salario) || salario <= 0) {
+    alert("Digite um salário válido!");
     return;
   }
 
-  buscarPokemon(valor);
-  input.value = '';
-});
+  let inss = calcularINSS(salario);
+  let base = salario - inss;
+  let irrf = calcularIRRF(base);
+  let liquido = salario - inss - irrf;
 
-renderizar();
+  // Exibir valores formatados em reais
+  document.getElementById("inss").value = formatarMoeda(inss);
+  document.getElementById("irrf").value = formatarMoeda(irrf);
+  document.getElementById("liquido").value = formatarMoeda(liquido);
+
+  let msg = document.getElementById("mensagem");
+
+  if (irrf === 0) {
+    msg.style.display = "block";
+    msg.innerText = "Você está isento de Imposto de Renda em 2026!";
+  } else {
+    msg.style.display = "block";
+    msg.innerText = "Descontos aplicados com sucesso!";
+  }
+}
+
+function limpar() {
+  document.getElementById("salario").value = "";
+  document.getElementById("inss").value = "";
+  document.getElementById("irrf").value = "";
+  document.getElementById("liquido").value = "";
+  
+  let msg = document.getElementById("mensagem");
+  msg.style.display = "none";
+  msg.innerText = "";
+}
+
+function calcularINSS(salario) {
+  let teto = 8475.55;
+  let base = Math.min(salario, teto);
+  let inss = 0;
+
+  if (base <= 1621) {
+    inss = base * 0.075;
+  } else if (base <= 2902.84) {
+    inss = (1621 * 0.075) + ((base - 1621) * 0.09);
+  } else if (base <= 4354.27) {
+    inss = (1621 * 0.075) + (1281.84 * 0.09) + ((base - 2902.84) * 0.12);
+  } else {
+    inss = (1621 * 0.075) + (1281.84 * 0.09) + (1451.43 * 0.12) + ((base - 4354.27) * 0.14);
+  }
+
+  return Math.min(inss, 988.09);
+}
+
+function calcularIRRF(base) {
+  if (base <= 5000) return 0;
+  return (base - 5000) * 0.275;
+}
+
+// Função para formatar como moeda BRL
+function formatarMoeda(valor) {
+  return valor.toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL"
+  });
+}

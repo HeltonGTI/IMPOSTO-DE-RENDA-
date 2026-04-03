@@ -1,80 +1,106 @@
+/* style.css */
+
+/* ===== Corpo da página ===== */
 body {
-font-family: Arial, sans-serif;
-  background: linear-gradient(300deg, #ff0000 50%, #ffffff 50%);
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #1976D2, #0D47A1);
   display: flex;
   justify-content: center;
-  padding: 40px;
+  align-items: center;
+  height: 100vh;
 }
 
-.container {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 600px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+/* ===== Card do simulador ===== */
+.card {
+  background: white;
+  width: 380px;
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
+/* ===== Título ===== */
 h1 {
-    text-align: center;
+  text-align: center;
+  color: #0D47A1;
+  margin-bottom: 20px;
+  font-size: 22px;
 }
 
-form {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
+/* ===== Grupos de input ===== */
+.grupo {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #1976D2;
 }
 
 input {
-    flex: 1;
-    padding: 10px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+input:disabled {
+  background: #E3F2FD;
+  font-weight: bold;
+}
+
+/* ===== Botões ===== */
+.botoes {
+  display: flex;
+  flex-direction: column; 
+  gap: 10px;
+  margin-top: 6px;
+  margin-bottom: 20px;
 }
 
 button {
-    padding: 10px;
-    cursor: pointer;
-    background: #3b4cca;
-    color: white;
-    border: none;
-    border-radius: 5px;
-}
-
-button:hover {
-    background: #2a35a0;
-}
-
-#erro {
-    color: red;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-th,
-td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: center;
-}
-
-img {
-    width: 60px;
-}
-.pokebola-btn {
-  background: none;
+  padding: 12px;
   border: none;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
-.pokebola-btn img {
-  width: 25px;
-  transition: transform 0.2s;
+/* Botão calcular */
+.calcular {
+  background: #1976D2;
+  color: white;
 }
 
-.pokebola-btn img:hover {
-  transform: scale(1.2) rotate(10deg);
+.calcular:hover {
+  background: #0D47A1;
 }
-.header img {
-  width: 80px;
+
+/* Botão limpar */
+.limpar {
+  background: #ccc;
+  color: #333;
+}
+
+.limpar:hover {
+  background: #999;
+}
+
+/* ===== Resultado ===== */
+.resultado {
+  margin-top: 16px;
+  padding: 16px;
+  background: #E3F2FD;
+  border-radius: 10px;
+  text-align: center;
+  font-weight: bold;
+  color: #0D47A1;
+  display: none;
 }
